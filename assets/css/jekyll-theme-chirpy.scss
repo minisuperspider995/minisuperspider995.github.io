@@ -156,3 +156,10 @@ article:hover {
   box-shadow: var(--card-shadow) !important;
   border-radius: 10px !important;
 }
+
+
+.row.flex-grow-1 {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+}
+
