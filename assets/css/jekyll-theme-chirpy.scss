@@ -4,37 +4,29 @@
 /* Override Chirpy dark theme colors */
 :root[data-mode="dark"],
 :root {
-  /* Sidebar */
   --sidebar-bg: #1a1210;
   --sidebar-active-color: #3a8a4f;
   --sidebar-muted-color: #b8956a;
   --avatar-border-color: #3a8a4f;
-
-  /* Accent / links */
   --link-color: #3a8a4f;
-  --link-underline-color: rgba(232, 122, 48, 0.3);
-
-  /* Body */
+  --link-underline-color: rgba(58, 138, 79, 0.3);
   --body-bg: #201714;
   --main-bg: #2a1e1a;
   --text-color: #d4c4b0;
   --text-muted-color: #b8956a;
   --heading-color: #4aa85f;
-
-  /* Buttons / tags */
   --btn-bg: #3a8a4f;
   --tag-hover: #3a8a4f;
   --btn-color: #1a1210;
-
-  /* Code blocks */
   --highlight-bg-color: #1a1210;
   --highlighter-rouge-color: #4aa85f;
-
-  /* Borders */
   --border-color: #3a2a1e;
 }
 
-/* Hide default sidebar, use top nav */
+@import "main";
+
+/* === Custom rules AFTER import so they win === */
+
 #sidebar {
   display: none !important;
 }
@@ -49,21 +41,33 @@
   border-bottom: 2px solid #3a8a4f;
   height: 60px;
   padding: 0 1.5rem;
+  display: flex !important;
+  align-items: center;
 
   .site-title {
     color: #4aa85f;
     font-weight: 700;
     font-size: 1.2rem;
     text-decoration: none;
-
     &:hover { color: #3a8a4f; }
+  }
+
+  ul.nav {
+    display: flex !important;
+    flex-direction: row !important;
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    list-style: none !important;
   }
 
   .nav-link {
     color: var(--sidebar-muted-color);
     font-size: 0.85rem;
     padding: 0.4rem 0.8rem;
-
     &:hover { color: #3a8a4f; }
   }
 
@@ -75,18 +79,14 @@
     color: var(--sidebar-muted-color);
     margin-left: 0.8rem;
     font-size: 1rem;
-
     &:hover { color: #3a8a4f; }
   }
 }
 
-/* Push body content below fixed top nav */
 body.topnav-layout {
   padding-top: 70px;
 
   #main-wrapper {
-    margin-left: 0;
+    margin-left: 0 !important;
   }
 }
-
-@import "main";
