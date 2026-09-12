@@ -1,0 +1,57 @@
+<!-- Top Navigation Bar (replaces sidebar) -->
+
+<nav aria-label="Top Navigation" id="topnav" class="d-flex align-items-center w-100 px-3 py-2">
+  <a href="{{ '/' | relative_url }}" id="avatar" class="me-3">
+    {%- if site.avatar != empty and site.avatar -%}
+      {%- capture avatar_url -%}
+        {% include media-url.html src=site.avatar %}
+      {%- endcapture -%}
+      <img src="{{- avatar_url -}}" width="40" height="40" alt="avatar" class="rounded-circle" onerror="this.style.display='none'">
+    {%- endif -%}
+  </a>
+
+  <a class="site-title me-auto" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+
+  <ul class="nav mb-0">
+    <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
+      <a href="{{ '/' | relative_url }}" class="nav-link">
+        <i class="fa-fw fas fa-home"></i>
+        <span>{{ site.data.locales[include.lang].tabs.home | upcase }}</span>
+      </a>
+    </li>
+    {% for tab in site.tabs %}
+      <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">
+        <a href="{{ tab.url | relative_url }}" class="nav-link">
+          <i class="fa-fw {{ tab.icon }}"></i>
+          {% capture tab_name %}{{ tab.url | split: '/' }}{% endcapture %}
+          <span>{{ site.data.locales[include.lang].tabs.[tab_name] | default: tab.title | upcase }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="topnav-right d-flex align-items-center ms-3">
+    {% for entry in site.data.contact %}
+      {%- assign url = null -%}
+      {% case entry.type %}
+        {% when 'github', 'twitter' %}
+          {%- unless site[entry.type].username -%}{%- continue -%}{%- endunless -%}
+          {%- capture url -%}https://{{ entry.type }}.com/{{ site[entry.type].username }}{%- endcapture -%}
+        {% when 'email' %}
+          {%- unless site.social.email -%}{%- continue -%}{%- endunless -%}
+          {%- assign email = site.social.email | split: '@' -%}
+          {%- capture url -%}javascript:void(location.href = 'mailto:' + ['{{ email[0] }}','{{ email[1] }}'].join('@')){%- endcapture -%}
+        {% when 'rss' %}
+          {% assign url = '/feed.xml' | relative_url %}
+        {% else %}
+          {% assign url = entry.url %}
+      {% endcase %}
+      {% if url %}
+        <a href="{{ url }}" aria-label="{{ entry.type }}"
+          {% unless entry.noblank %}target="_blank" rel="noopener noreferrer"{% endunless %}>
+          <i class="{{ entry.icon }}"></i>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</nav>
