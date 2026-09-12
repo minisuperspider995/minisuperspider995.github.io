@@ -101,3 +101,11 @@ body.topnav-layout #main-wrapper {
   margin-left: 0 !important;
   padding-left: 0 !important;
 }
+
+/* Tone down post card hover */
+.card-wrapper .card:hover,
+.post-preview:hover,
+article:hover {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
