@@ -109,3 +109,7 @@ article:hover {
   background-color: transparent !important;
   box-shadow: none !important;
 }
+
+.post-preview:hover::before {
+  opacity: 0 !important;
+}
